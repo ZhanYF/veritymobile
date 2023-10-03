@@ -1,0 +1,6 @@
+[submodule "external/arm-trusted-firmware"]
+	path = external/arm-trusted-firmware
+	url = https://github.com/ARM-software/arm-trusted-firmware
+[submodule "external/MSRSec"]
+	path = external/MSRSec
+	url = https://github.com/microsoft/MSRSec

@@ -7,3 +7,7 @@
 [submodule "external/MSRSec"]
 	path = external/MSRSec
 	url = https://github.com/ZhanYF/MSRSec
+[submodule "mobian-recipes"]
+	path = mobian-recipes
+	url = https://salsa.debian.org/yifei/mobian-recipes.git
+	branch = veritymobile

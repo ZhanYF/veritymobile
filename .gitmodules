@@ -4,3 +4,6 @@
 [submodule "external/optee_os"]
 	path = external/optee_os
 	url = https://github.com/OP-TEE/optee_os
+[submodule "external/MSRSec"]
+	path = external/MSRSec
+	url = https://github.com/ZhanYF/MSRSec

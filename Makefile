@@ -118,6 +118,8 @@ OPTEE_OS_FLAGS ?= \
 
 optee-os-withTA:
 	$(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS)
+	cp $(OPTEE_OS_PATH)/out/arm-plat-rockchip/core/tee.bin \
+		$(PROJECT_ROOT)/output/
 
 optee-os-withTA-clean:
 	$(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS) clean

@@ -11,3 +11,6 @@
 	path = mobian-recipes
 	url = https://salsa.debian.org/yifei/mobian-recipes.git
 	branch = veritymobile
+[submodule "external/u-boot-cbl"]
+	path = external/u-boot-cbl
+	url = https://github.com/ZhanYF/u-boot-cbl.git

@@ -119,8 +119,26 @@ OPTEE_OS_FLAGS ?= \
 optee-os-withTA:
 	$(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS)
 	cp $(OPTEE_OS_PATH)/out/arm-plat-rockchip/core/tee.bin \
-		$(PROJECT_ROOT)/output/
+`		$(PROJECT_ROOT)/output/
 
 optee-os-withTA-clean:
 	$(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS) clean
+
+################################################################################
+# U-Boot
+################################################################################
+
+UBOOT_PATH =	$(PROJECT_ROOT)/external/u-boot-cbl
+
+# XXX to be done
+configure-u-boot:
+	$(MAKE) -C $(UBOOT_PATH) clean
+	$(MAKE) -C $(UBOOT_PATH) pinephone-pro-rk3399_efi_defconfig
+
+u-boot:
+	CROSS_COMPILE=$(CROSS_COMPILE_64) BL31=$(PROJECT_ROOT)/output/bl31.elf ARCH=arm64 \
+		     make -C $(UBOOT_PATH) -j4 all
+	cp $(UBOOT_PATH)/idbloader.img $(PROJECT_ROOT)/output/
+	cp $(UBOOT_PATH)/u-boot.itb    $(PROJECT_ROOT)/output/
+
 

@@ -111,13 +111,13 @@ ftpm-clean:
 # More on early TA:
 # https://github.com/OP-TEE/optee_os/commit/d0c636148b3a
 ################################################################################
-OPTEE_OS_FLAGS ?= \
+OPTEE_OS_WITH_TA_FLAGS ?= \
 	$(OPTEE_OS_COMMON_EXTRA_FLAGS) \
 	PLATFORM=rockchip-rk3399 \
 	CROSS_COMPILE=$(CROSS_COMPILE_64) \
 	CROSS_COMPILE_core=$(CROSS_COMPILE_64) \
 	$(OPTEE_OS_TA_CROSS_COMPILE_FLAGS) \
-	EARLY_TA_PATHS=$(PROJECT_ROOT)/output/$(FTPM_TA_NAME) \
+	EARLY_TA_PATHS=$(FTPM_TA_PATH) \
 	CFG_TEE_CORE_LOG_LEVEL=3 \
 	CFG_TEE_TA_LOG_LEVEL=3
 
@@ -126,7 +126,7 @@ OPTEE_OS_ENV ?= \
 	MEASURED_BOOT_FTPM=y
 
 optee-os-withTA:
-	$(OPTEE_OS_ENV) $(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS)
+	$(OPTEE_OS_ENV) $(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_WITH_TA_FLAGS)
 	echo $(PROJECT_ROOT)/output/$(FTPM_TA_NAME)
 	cp $(OPTEE_OS_PATH)/out/arm-plat-rockchip/core/tee.bin \
 		$(PROJECT_ROOT)/output/

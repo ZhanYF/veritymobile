@@ -138,8 +138,11 @@ optee-os-withTA-clean:
 # U-Boot
 ################################################################################
 
-#UBOOT_PATH =	$(PROJECT_ROOT)/external/u-boot-cbl
 UBOOT_PATH =	$(PROJECT_ROOT)/external/u-boot
+UBOOT_VERITYCONFIG += $(UBOOT_PATH)/configs/pinephone-pro-rk3399_defconfig
+UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_efi
+UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_tee
+UBOOT_TAG = v2023.10
 UBOOT_ENV ?= \
 	     BL31=$(PROJECT_ROOT)/output/bl31.elf \
 	     TEE=$(PROJECT_ROOT)/output/tee.bin \
@@ -151,8 +154,9 @@ UBOOT_FLAGS ?= \
 # XXX to be done
 configure-u-boot:
 	rm -f $(PROJECT_ROOT)/output/{idbloader.img,u-boot.itb}
+	cd $(UBOOT_PATH) && git checkout $(UBOOT_TAG)
 	$(UBOOT_ENV) $(MAKE) -C $(UBOOT_PATH) $(UBOOT_FLAGS) distclean
-	$(UBOOT_ENV) $(MAKE) -C $(UBOOT_PATH) $(UBOOT_FLAGS) pinephone-pro-rk3399_tee_defconfig
+	cd $(UBOOT_PATH) && scripts/kconfig/merge_config.sh $(UBOOT_VERITYCONFIG)
 
 u-boot:
 	$(UBOOT_ENV) $(MAKE) -C $(UBOOT_PATH) $(UBOOT_FLAGS)  -j4 all

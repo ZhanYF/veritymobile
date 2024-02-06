@@ -4,10 +4,7 @@
 
 PROJECT_ROOT = $(shell pwd)
 
-# all: arm_tfa optee_os ftpm optee_os_with_earlyTA u-boot mobian_image
-#all: arm-tfa
-
-
+all: arm-tfa optee-os ftpm optee-os-withTA configure-u-boot u-boot
 
 .PHONY: init
 init:
@@ -67,10 +64,10 @@ OPTEE_OS_FLAGS ?= \
 		  CFG_EARLY_TA=y \
 		  CFG_TEE_CORE_LOG_LEVEL=3
 
-optee_os:
+optee-os:
 	$(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS) ta_dev_kit
 
-optee_os_clean:
+optee-os-clean:
 	$(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS) clean
 
 ################################################################################

@@ -1,0 +1,10 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    recommends: false
+    description: Install packages for full disk encryption
+    packages:
+      - unl0kr

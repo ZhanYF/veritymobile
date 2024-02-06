@@ -1,0 +1,43 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    recommends: false
+    description: Install Phosh packages
+    packages:
+      - mobian-phosh
+      # Additional software we don't want metapackages to depend on
+      - eog
+      - epiphany-browser
+      - endeavour
+      - evince
+      - firefox-esr
+      # Temporary hack until geary returns to testing
+      # - geary
+      - gnome-calculator
+      - gnome-calendar
+      - gnome-console
+      - gnome-maps
+      - gnome-software
+      - gnome-software-plugin-flatpak
+      - gnome-sound-recorder
+      - gnome-text-editor
+      - gnome-usage
+      - gnome-weather
+      - lollypop
+      - phog
+      - phosh-mobile-settings
+      - phosh-plugins
+      - phosh-tour
+      - portfolio-filemanager
+      - powersupply-gtk
+      - webext-ublock-origin-firefox
+      # Temporary workaround until chatty returns to bookworm
+      - chatty
+
+  - action: run
+    description: Disable getty in the Phosh environment
+    chroot: true
+    command: systemctl disable getty@.service

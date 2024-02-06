@@ -1,0 +1,20 @@
+{{- $architecture := or .architecture "arm64" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    recommends: false
+    description: Install Plasma Mobile packages
+    packages:
+      - mobian-plasma-mobile
+      - angelfish
+      - elisa
+      - firefox-esr
+      - kdeconnect
+      - ktrip
+      - neochat
+      - phog
+      - qmlkonsole
+      - tokodon
+      - webext-ublock-origin-firefox

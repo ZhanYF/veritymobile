@@ -1,0 +1,38 @@
+# This file is to be filled in with the appropriate parameters for your device
+# It is used both to identify the device-tree file name and to construct the
+# boot image.
+
+# The chipset reference as used as the first part of the device-tree file name
+# (e.g. "sdm845")
+chipset = ""
+
+# Boot image parameters: load addresses and block device sector size
+# Those parameters can be extracted from an existing boot image by
+# running `abootimg -i <image>`, for example
+[bootimg]
+base = 0x0
+kernel = 0x0
+ramdisk = 0x0
+second = 0x0
+tags = 0x0
+pagesize = 0
+
+# Device-specific parameters: those are mostly used to identify the device, and
+# especially the device-tree file to use, which is constructed this way:
+#   qcom/<chipset>-<vendor>-<model>[-<variant>].dtb
+#
+# It is also possible to set additional cmdline parameters using the "append"
+# entry, in case kernel-level quirks are needed which have corresponding cmdline
+# options
+[[device]]
+vendor = ""
+model = ""
+# OPTIONAL: uncomment if this device uses a different SoC than the one mentioned
+# in the top-level `chipset` variable (or if this top-level variable is missing)
+# chipset = ""
+# OPTIONAL: uncomment if there are several variants of the same model needing
+# different device-tree files (e.q. "xiaomi-beryllium" has variants "ebbg" and
+# "tianma")
+# variant = ""
+# OPTIONAL: uncomment if additional cmdline parameters are needed
+# append = ""

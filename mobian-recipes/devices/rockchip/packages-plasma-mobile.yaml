@@ -1,0 +1,14 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $device := or .device "pinephonepro" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    recommends: false
+    description: Install device-specific packages for Plasma Mobile
+    packages:
+{{ if ne $device "pinetab2" }}
+      - mobian-plasma-mobile-phone
+      - firefox-esr-mobile-config
+{{ end }}

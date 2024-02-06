@@ -10,14 +10,12 @@ Checkout `dev-wip` branch for more...
 
 Current state:
 
+- Secure payload is delivered with mainline u-boot v2023.10
 - OP-TEE mostly works on PinePhone Pro, but not validated to be secure
 - Runtime access to fTPM is possible, manual intervention requried
-- Device tree source is broken for some hardware, we likely need to catch up on U-boot version
 
 Tasks:
 
-- Fix broken DTS
-- Integrate U-Boot with OP-TEE in system image to make testing easier
 - Validate platform and possibly upstream PinePhonePro support for OPTEE
 - Investigate possible hardware root-of-trust (RK3399's BootROM supports verified boot, but does it work? how?)
 - Use RPMB area in the eMMC for OPTEE secure storage

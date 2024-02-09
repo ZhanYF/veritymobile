@@ -168,6 +168,18 @@ u-boot:
 	cp $(UBOOT_PATH)/u-boot.itb    $(PROJECT_ROOT)/output/
 
 ################################################################################
+# Patch DTB for the mobian image to declear reserved memory and prevent memory
+# conflict. otherwise kernel will panic with SError Interrupt on CPUx
+# ref: https://github.com/Linaro/meta-ledge/pull/297
+################################################################################
+
+patch-dtb:
+	cd $(PROJECT_ROOT)/tools/dtb && ./patch-dtb.sh
+
+clean-dtb:
+	rm $(PROJECT_ROOT)/output/*.dtb
+
+################################################################################
 # Misc
 ################################################################################
 

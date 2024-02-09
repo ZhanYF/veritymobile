@@ -19,3 +19,8 @@ Tasks:
 - Validate platform and possibly upstream PinePhonePro support for OPTEE
 - Investigate possible hardware root-of-trust (RK3399's BootROM supports verified boot, but does it work? how?)
 - Use RPMB area in the eMMC for OPTEE secure storage
+
+Quickstart:
+
+Default user name: `mobian`
+Default password: `1234`

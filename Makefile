@@ -144,6 +144,7 @@ optee-os-withTA-clean:
 
 UBOOT_PATH =	$(PROJECT_ROOT)/external/u-boot
 UBOOT_VERITYCONFIG += $(UBOOT_PATH)/configs/pinephone-pro-rk3399_defconfig
+UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/set_baudrate_to_115200
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_efi
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_tee
 UBOOT_TAG = v2023.10

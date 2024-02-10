@@ -5,6 +5,7 @@
 PROJECT_ROOT = $(shell pwd)
 
 all: arm-tfa optee-os ftpm optee-os-withTA configure-u-boot u-boot
+clean-all: arm-tfa-clean optee-os-clean optee-os-withTA-clean ftpm-clean configure-u-boot
 
 .PHONY: init
 init:
@@ -183,10 +184,6 @@ clean-dtb:
 ################################################################################
 # Misc
 ################################################################################
-
-clean-all: arm-tfa-clean optee_os_clean ftpm-clean configure-u-boot
-all: arm-tfa optee_os ftpm optee-os-withTA configure-u-boot u-boot
-
 
 write-sd:
 	sudo dd if=$(PROJECT_ROOT)/output/idbloader.img of=/dev/sdb seek=64     oflag=direct,sync status=progress

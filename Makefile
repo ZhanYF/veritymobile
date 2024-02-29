@@ -27,7 +27,8 @@ CROSS_COMPILE_32	= "arm-linux-gnueabihf-"
 TFA_PATH = $(PROJECT_ROOT)/external/arm-trusted-firmware
 TFA_ENV ?= CROSS_COMPILE=$(CROSS_COMPILE_64)
 # LOG_LEVEL=50
-TFA_FLAGS ?= -j ARCH=aarch64 \
+TFA_FLAGS ?= -j \
+	        ARCH=aarch64 \
 	        PLAT=rk3399 \
 	       	SPD=opteed \
 	       	LOG_LEVEL=40 \
@@ -89,7 +90,8 @@ FTPM_PATH =	$(PROJECT_ROOT)/external/MSRSec/TAs/optee_ta/fTPM
 FTPM_UUID =	bc50d971-d4c9-42c4-82cb-343fb7f37896
 FTPM_TA_NAME =	$(FTPM_UUID).stripped.elf
 FTPM_TA_PATH =	$(PROJECT_ROOT)/external/MSRSec/TAs/optee_ta/out/fTPM/$(FTPM_TA_NAME)
-FTPM_ENV_FLAGS ?= CFG_ARM64_core=y \
+FTPM_ENV_FLAGS ?= \
+	CFG_ARM64_core=y \
 	CFG_FTPM_USE_WOLF=y \
 	CFG_TEE_TA_LOG_LEVEL=4 \
 	CFG_TA_DEBUG=y \
@@ -150,6 +152,7 @@ UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/set_baudrate_to_115200
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_efi
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_tee
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_ftpm
+UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_kaslr
 UBOOT_TAG = v2023.10
 UBOOT_ENV ?= \
 	     BL31=$(PROJECT_ROOT)/output/bl31.elf \

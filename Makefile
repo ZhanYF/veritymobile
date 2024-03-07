@@ -176,7 +176,9 @@ configure-u-boot:
 	cd $(UBOOT_PATH) && git checkout $(UBOOT_TAG)
 	$(UBOOT_ENV) $(MAKE) -C $(UBOOT_PATH) $(UBOOT_FLAGS) distclean
 	cd $(UBOOT_PATH) && scripts/kconfig/merge_config.sh $(UBOOT_VERITYCONFIG)
-
+	@echo Add ftpm and tee nodes to u-boot dts...
+	cp $(PROJECT_ROOT)/u-boot-configs/rk3399-pinephone-pro-u-boot.dtsi \
+		${UBOOT_PATH}/arch/arm/dts/rk3399-pinephone-pro-u-boot.dtsi
 u-boot:
 	$(UBOOT_ENV) $(MAKE) -C $(UBOOT_PATH) $(UBOOT_FLAGS)  -j4 all
 	cp $(UBOOT_PATH)/idbloader.img $(PROJECT_ROOT)/output/

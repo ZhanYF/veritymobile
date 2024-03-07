@@ -23,8 +23,9 @@ extract_dtb() {
 patch_dtb() {
   # decompile dtb to generate dts
   dtc -I dtb -O dts -o rk3399-pinephone-pro.dts rk3399-pinephone-pro.dtb.orig 2>/dev/null
-  # patch dts to add reserved-memory node
+  # patch dts to add reserved-memory node and nodes for ftpm and optee
   patch ./rk3399-pinephone-pro.dts < ./declear_reserved_memory_for_optee.patch
+  patch ./rk3399-pinephone-pro.dts < ./add_nodes_for_ftpm_and_optee.patch
   # recompile dts to generate dtb
   dtc -I dts -O dtb -o rk3399-pinephone-pro.dtb rk3399-pinephone-pro.dts 2>/dev/null
   # save result and clean up

@@ -160,6 +160,7 @@ UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_rpmb
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_efi
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_tee
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_ftpm
+UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_measured_boot
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_kaslr
 UBOOT_TAG = v2024.01
 UBOOT_ENV ?= \

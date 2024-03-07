@@ -14,7 +14,7 @@ Checkout `dev-wip` branch for more...
 
 Current state:
 
-- Secure payload is delivered with mainline u-boot v2023.10
+- Secure payload is delivered with mainline u-boot v2024.01
 - OP-TEE mostly works on PinePhone Pro, but not validated to be secure
 - Runtime access to fTPM is possible, manual intervention requried
 

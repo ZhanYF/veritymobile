@@ -1,12 +1,12 @@
 [submodule "external/arm-trusted-firmware"]
 	path = external/arm-trusted-firmware
 	url = https://github.com/ARM-software/arm-trusted-firmware
-[submodule "external/optee_os"]
-	path = external/optee_os
-	url = https://github.com/OP-TEE/optee_os
 [submodule "external/MSRSec"]
 	path = external/MSRSec
 	url = https://github.com/ZhanYF/MSRSec
 [submodule "external/u-boot"]
 	path = external/u-boot
 	url = https://github.com/u-boot/u-boot
+[submodule "optee_os"]
+	path = external/optee_os
+	url = git@github.com:ZhanYF/optee_os.git

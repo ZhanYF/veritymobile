@@ -4,6 +4,7 @@
 {{- $hostname := or .hostname "mobian" -}}
 {{- $debian_suite := or .debian_suite "trixie" -}}
 {{- $suite := or .suite $debian_suite -}}
+{{- $environment := or .environment "phosh" -}}
 {{- $installfs := or .installfs "installfs.tar.gz" }}
 
 architecture: {{ $architecture }}
@@ -52,7 +53,7 @@ actions:
   - action: run
     description: Set up installer
     chroot: true
-    script: scripts/setup-installer.sh {{ $username }}
+    script: scripts/setup-installer.sh {{ $username }} {{ $debian_suite }} {{ $environment }}
 
   - action: pack
     file: {{ $installfs }}

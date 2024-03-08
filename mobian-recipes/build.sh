@@ -75,7 +75,7 @@ case "${device}" in
     ;;
   "pinephonepro"|"pinetab2"|"rockchip" )
     family="rockchip"
-    ARGS="${ARGS} -t nonfree:true -t bootstart:20MiB"
+    ARGS="${ARGS} -t nonfree:true -t bootstart:16MiB"
     ;;
   "librem5" )
     family="librem5"

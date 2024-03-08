@@ -14,3 +14,12 @@ actions:
 {{ end }}
       # Reason for this: it's @a-wai's preferred editor
       - vim
+
+actions:
+  - action: apt
+    recommends: true
+    description: Install TPM and TEE development packages
+    packages:
+      - openssh-server
+      - tee-supplicant
+      - tpm2-tools

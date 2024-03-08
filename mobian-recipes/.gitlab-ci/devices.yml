@@ -1,0 +1,66 @@
+.job-rules: &job_rules
+  - if: $CI_PIPELINE_SOURCE == "schedule"
+    when: always
+  - if: $MOBIAN_CI_DEVICE == $MOBIAN_DEVICE_FAMILY
+    when: always
+  - changes:
+    - devices/$MOBIAN_DEVICE_FAMILY/*
+    when: always
+  - when: never
+
+.device-sunxi:
+  extends:
+    - .arch-arm64
+  variables:
+    MOBIAN_DEVICE_FAMILY: "sunxi"
+    MOBIAN_DEVICE_NAME: "sunxi"
+    MOBIAN_INCLUDE_NONFREE: "true"
+  rules: *job_rules
+
+.device-rockchip:
+  extends:
+    - .arch-arm64
+  variables:
+    MOBIAN_DEVICE_FAMILY: "rockchip"
+    MOBIAN_DEVICE_NAME: "rockchip"
+    MOBIAN_INCLUDE_NONFREE: "true"
+  rules: *job_rules
+
+.device-librem5:
+  extends:
+    - .arch-arm64
+  variables:
+    MOBIAN_DEVICE_FAMILY: "librem5"
+    MOBIAN_DEVICE_NAME: "librem5"
+    MOBIAN_BOOT_PARTITION_START: "8MiB"
+  rules: *job_rules
+
+.device-qcom:
+  extends:
+    - .arch-arm64
+  variables:
+    MOBIAN_DEVICE_FAMILY: "qcom"
+    MOBIAN_DEVICE_NAME: "qcom"
+    MOBIAN_INCLUDE_NONFREE: "true"
+  before_script:
+    # Replicate the default before_script as we can't otherwise include it
+    - chmod 0400 "$MOBIAN_CI_SSH_KEY"
+    - eval $(ssh-agent -s)
+    - ssh-add "$MOBIAN_CI_SSH_KEY"
+    - |
+      if [ -f "$MOBIAN_SSH_KEY" ]; then
+          chmod 0400 "$MOBIAN_SSH_KEY"
+          ssh-add "$MOBIAN_SSH_KEY"
+      fi
+    # Those are the qcom-specific bits
+    - SECTSIZE="$(tomlq -r '.bootimg.pagesize' devices/qcom/configs/${MOBIAN_DEVICE_NAME}.toml)"
+    - MOBIAN_EXTRA_DEBOS_ARGS="-e MKE2FS_DEVICE_SECTSIZE:${SECTSIZE} -t bootonroot:true"
+  rules: *job_rules
+
+.device-amd64:
+  extends:
+    - .arch-amd64
+  variables:
+    MOBIAN_DEVICE_NAME: "amd64"
+    MOBIAN_INCLUDE_NONFREE: "true"
+  rules: *job_rules

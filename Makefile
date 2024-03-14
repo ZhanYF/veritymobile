@@ -16,6 +16,7 @@ init:
 ################################################################################
 
 CROSS_COMPILE_64	= "aarch64-linux-gnu-"
+CROSS_COMPILE_64_GCC	= "aarch64-linux-gnu-gcc"
 CROSS_COMPILE_32	= "arm-linux-gnueabihf-"
 
 ################################################################################
@@ -148,6 +149,38 @@ optee-os-withTA:
 
 optee-os-withTA-clean:
 	$(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS) clean
+
+################################################################################
+# tee-supplicant with hardware RPMB access support
+#
+# By default, tee-supplicant is built with RPMB_EMU=y, which prevents access to
+# the actual hardware RPMB, because of this, Debian's tee-supplicant package 
+# cannot be used and we have to compile from source with RPMB_EMU=n
+################################################################################
+
+OPTEE_CLIENT_TAG = 4.1.0
+OPTEE_CLIENT_PATH =	$(PROJECT_ROOT)/external/optee_client
+OPTEE_CLIENT_FLAGS ?= \
+		      -DRPMB_EMU=n \
+		      -DCMAKE_C_COMPILER=$(CROSS_COMPILE_64_GCC)
+
+.PHONY: optee-client-configure
+optee-client-configure:
+	cd $(OPTEE_CLIENT_PATH) && git checkout $(OPTEE_CLIENT_TAG)
+	mkdir -p $(OPTEE_CLIENT_PATH)/build
+	cd $(OPTEE_CLIENT_PATH)/build && cmake $(OPTEE_CLIENT_FLAGS) ..
+
+
+.PHONY: optee-client-clean
+optee-client-clean:
+	$(MAKE) -C $(OPTEE_CLIENT_PATH) clean
+	rm $(OPTEE_CLIENT_PATH)/build/tee-supplicant/tee-supplicant
+
+.PHONY: optee-client
+optee-client: optee-client-configure
+	cd $(OPTEE_CLIENT_PATH)/build && make -j
+	cp $(OPTEE_CLIENT_PATH)/build/tee-supplicant/tee-supplicant \
+		 $(PROJECT_ROOT)/output/
 
 ################################################################################
 # U-Boot

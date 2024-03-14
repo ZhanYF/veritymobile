@@ -10,3 +10,6 @@
 [submodule "optee_os"]
 	path = external/optee_os
 	url = git@github.com:ZhanYF/optee_os.git
+[submodule "external/optee_client"]
+	path = external/optee_client
+	url = https://github.com/OP-TEE/optee_client

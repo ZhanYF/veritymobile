@@ -17,12 +17,12 @@ Current state:
 - Secure payload is delivered with mainline u-boot v2024.01
 - OP-TEE mostly works on PinePhone Pro, but not validated to be secure
 - Runtime access to fTPM is possible, manual intervention requried
+- RPMB is used for persistent secure storage for optee os
 
 Tasks:
 
 - Validate platform and possibly upstream PinePhonePro support for OPTEE
 - Investigate possible hardware root-of-trust (RK3399's BootROM supports verified boot, but does it work? how?)
-- Use RPMB area in the eMMC for OPTEE secure storage
 
 Quickstart:
 

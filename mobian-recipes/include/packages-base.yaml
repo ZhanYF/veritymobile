@@ -21,5 +21,4 @@ actions:
     description: Install TPM and TEE development packages
     packages:
       - openssh-server
-      - tee-supplicant
       - tpm2-tools

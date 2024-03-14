@@ -141,12 +141,14 @@ OPTEE_OS_ENV ?= \
 	MEASURED_BOOT=y \
 	MEASURED_BOOT_FTPM=y
 
+.PHONY: optee-os-withTA
 optee-os-withTA:
 	$(OPTEE_OS_ENV) $(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_WITH_TA_FLAGS)
 	echo $(PROJECT_ROOT)/output/$(FTPM_TA_NAME)
 	cp $(OPTEE_OS_PATH)/out/arm-plat-rockchip/core/tee.bin \
 		$(PROJECT_ROOT)/output/
 
+.PHONY: optee-os-withTA-clean
 optee-os-withTA-clean:
 	$(MAKE) -C $(OPTEE_OS_PATH) $(OPTEE_OS_FLAGS) clean
 
@@ -205,7 +207,8 @@ UBOOT_FLAGS ?= \
 	     CROSS_COMPILE=$(CROSS_COMPILE_64)
 
 # XXX to be done
-configure-u-boot:
+.PHONY: u-boot-configure
+u-boot-configure:
 	rm -f $(PROJECT_ROOT)/output/{idbloader.img,u-boot.itb}
 	cd $(UBOOT_PATH) && git checkout $(UBOOT_TAG)
 	$(UBOOT_ENV) $(MAKE) -C $(UBOOT_PATH) $(UBOOT_FLAGS) distclean
@@ -213,6 +216,8 @@ configure-u-boot:
 	@echo Add ftpm and tee nodes to u-boot dts...
 	cp $(PROJECT_ROOT)/u-boot-configs/rk3399-pinephone-pro-u-boot.dtsi \
 		${UBOOT_PATH}/arch/arm/dts/rk3399-pinephone-pro-u-boot.dtsi
+
+.PHONY: u-boot
 u-boot:
 	$(UBOOT_ENV) $(MAKE) -C $(UBOOT_PATH) $(UBOOT_FLAGS)  -j4 all
 	cp $(UBOOT_PATH)/idbloader.img $(PROJECT_ROOT)/output/
@@ -224,16 +229,19 @@ u-boot:
 # ref: https://github.com/Linaro/meta-ledge/pull/297
 ################################################################################
 
-patch-dtb:
+.PHONY: dtb-patch
+dtb-patch:
 	cd $(PROJECT_ROOT)/tools/dtb && ./patch-dtb.sh
 
-clean-dtb:
+.PHONY: dtb-clean
+dtb-clean:
 	rm $(PROJECT_ROOT)/output/*.dtb
 
 ################################################################################
 # Misc
 ################################################################################
 
+.PHONY: write-sd
 write-sd:
 	sudo dd if=$(PROJECT_ROOT)/output/idbloader.img of=/dev/sdb seek=64     oflag=direct,sync status=progress
 	sudo dd if=$(PROJECT_ROOT)/output/u-boot.itb    of=/dev/sdb seek=16384  oflag=direct,sync status=progress

@@ -193,6 +193,7 @@ UBOOT_VERITYCONFIG += $(UBOOT_PATH)/configs/pinephone-pro-rk3399_defconfig
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/set_baudrate_to_115200
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_rpmb
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_efi
+UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_display
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_tee
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_ftpm
 UBOOT_VERITYCONFIG += $(PROJECT_ROOT)/u-boot-configs/enable_measured_boot

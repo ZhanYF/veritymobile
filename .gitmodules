@@ -13,3 +13,6 @@
 [submodule "external/optee_client"]
 	path = external/optee_client
 	url = https://github.com/OP-TEE/optee_client
+[submodule "external/tpm-fido"]
+	path = external/tpm-fido
+	url = https://github.com/psanford/tpm-fido

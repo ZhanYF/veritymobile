@@ -239,6 +239,22 @@ dtb-clean:
 	rm $(PROJECT_ROOT)/output/*.dtb
 
 ################################################################################
+# tpm-fido
+# https://github.com/psanford/tpm-fido
+# XXX to be packaged for debian
+################################################################################
+
+.PHONY: tpm-fido
+tpm-fido:
+	cd $(PROJECT_ROOT)/external/tpm-fido && \
+	       	GOOS=linux GOARCH=arm64 go build
+	cp $(PROJECT_ROOT)/external/tpm-fido/tpm-fido $(PROJECT_ROOT)/output/
+
+.PHONY: tpm-fido-clean
+tpm-fido-clean:
+	cd $(PROJECT_ROOT)/external/tpm-fido && go clean
+
+################################################################################
 # Misc
 ################################################################################
 

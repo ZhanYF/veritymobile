@@ -1,0 +1,66 @@
+image: registry.salsa.debian.org/mobian-team/docker-images/mobian-image-ci-amd64:latest
+
+stages:
+  - rootfs
+  - devicefs
+  - image
+  - installer
+
+default:
+  retry: 1
+  interruptible: true
+  before_script:
+    - chmod 0400 "$MOBIAN_CI_SSH_KEY"
+    - eval $(ssh-agent -s)
+    - ssh-add "$MOBIAN_CI_SSH_KEY"
+    - |
+      if [ -f "$MOBIAN_SSH_KEY" ]; then
+          chmod 0400 "$MOBIAN_SSH_KEY"
+          ssh-add "$MOBIAN_SSH_KEY"
+      fi
+  tags:
+    - kvm
+
+workflow:
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+      when: never
+    - if: $CI_PROJECT_ROOT_NAMESPACE == "Mobian-team"
+      when: always
+    - when: never
+
+variables:
+  DEBIAN_SUITE: "trixie"
+  MOBIAN_SUITE: "trixie"
+  MOBIAN_BOOT_PARTITION_START: "1MiB"
+  MOBIAN_FILESYSTEM: "ext4"
+  MOBIAN_IMAGE_SIZE: "6GB"
+  MOBIAN_INSTALLER_SIZE: "8GB"
+  MOBIAN_INCLUDE_NONFREE: "false"
+  MOBIAN_MINIRAMFS: "false"
+  MOBIAN_PARTITION_TABLE: "gpt"
+  ARTIFACTS_ROOT: /srv/builder/images
+  DEVICEFS_UPLOAD: "false"
+  IMAGES_ROOT: /var/www/images
+  IMAGES_CI_ROOT: /var/www/ci-images
+  MOBIAN_IMAGES_HOST: mobian.org
+  MOBIAN_CACHE_HOST: mobian.org
+
+.arch-amd64:
+  variables:
+    ARCH: amd64
+    MOBIAN_DEVICE_FAMILY: "amd64"
+    MOBIAN_IMAGE_SIZE: "15GB"
+    MOBIAN_INSTALLER_SIZE: "10GB"
+
+.arch-arm64:
+  variables:
+    ARCH: arm64
+
+.shell-phosh:
+  variables:
+    MOBIAN_GRAPHICAL_SHELL: "phosh"
+
+.shell-plasma-mobile:
+  variables:
+    MOBIAN_GRAPHICAL_SHELL: "plasma-mobile"

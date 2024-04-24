@@ -1,0 +1,24 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $ssh := or .ssh "" -}}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    recommends: false
+    description: Install base packages
+    packages:
+      - mobian-base
+{{ if $ssh }}
+      - openssh-server
+{{ end }}
+      # Reason for this: it's @a-wai's preferred editor
+      - vim
+
+actions:
+  - action: apt
+    recommends: true
+    description: Install TPM and TEE development packages
+    packages:
+      - openssh-server
+      - tpm2-tools

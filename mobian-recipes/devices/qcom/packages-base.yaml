@@ -1,0 +1,37 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $device := or .device "sdm845" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: run
+    chroot: true
+    description: Drop systemd-repart configuration
+    command: rm -rf /etc/repart.d/
+
+  - action: apt
+    recommends: false
+    description: Install device-specific base packages
+    packages:
+      - yq
+{{- if ne $device "wip" }}
+      - {{ $device }}-support
+{{- else }}
+      - qcom-support-common
+      - openssh-server
+
+  - action: overlay
+    description: Copy additional packages to image
+    source: packages
+    destination: /srv
+
+  - action: run
+    chroot: true
+    description: Install additional packages
+    command: dpkg -i /srv/*.deb
+
+  - action: overlay
+    description: Add droid-juicer configuration to image
+    source: droid-juicer
+    destination: /usr/share/droid-juicer/configs
+{{- end }}

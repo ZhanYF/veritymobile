@@ -1,0 +1,34 @@
+{{- $architecture := or .architecture "amd64" -}}
+{{- $device := or .device "amd64" }}
+{{- $nonfree := or .nonfree "false" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    recommends: false
+    description: Install device-specific base packages
+    packages:
+      - linux-image-amd64
+      - grub-efi
+{{ if eq $nonfree "true" }}
+      - atmel-firmware
+      - bluez-firmware
+      - firmware-atheros
+      - firmware-bnx2
+      - firmware-bnx2x
+      - firmware-brcm80211
+      - firmware-cavium
+      - firmware-intel-sound
+      - firmware-iwlwifi
+      - firmware-libertas
+      - firmware-linux
+      - firmware-linux-nonfree
+      - firmware-myricom
+      - firmware-netronome
+      - firmware-netxen
+      - firmware-qlogic
+      - firmware-realtek
+      - firmware-sof-signed
+      - firmware-ti-connectivity
+{{ end }}

@@ -1,0 +1,14 @@
+3799c3799,3809
+<  
+---
+> 
+> 	tpm@0 {
+> 		compatible = "microsoft,ftpm";
+> 	};
+> 
+> 	firmware {
+> 		optee {
+> 			compatible = "linaro,optee-tz";
+> 			method = "smc";
+> 		};
+> 	};

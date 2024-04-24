@@ -1,0 +1,15 @@
+{{- $architecture := or .architecture "arm64" -}}
+{{- $device := or .device "pinephonepro" }}
+
+architecture: {{ $architecture }}
+
+actions:
+  - action: apt
+    recommends: false
+    description: Install device-specific packages for Phosh
+    packages:
+{{ if ne $device "pinetab2" }}
+      - mobian-phosh-phone
+      - firefox-esr-mobile-config
+{{ end }}
+      - gnome-snapshot

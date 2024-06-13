@@ -18,7 +18,7 @@ actions:
 actions:
   - action: apt
     recommends: true
-    description: Install TPM and TEE development packages
+    description: Install TPM development packages
     packages:
       - openssh-server
       - tpm2-tools

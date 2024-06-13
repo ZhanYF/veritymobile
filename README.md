@@ -38,7 +38,12 @@ Quickstart:
 Default user name: `mobian`
 Default password: `1234`
 
+----------
+
+#### This project is sponsored by a grant from [Linux Australia][5]
+
 [1]: https://optee.readthedocs.io/en/latest/general/about.html
 [2]: https://github.com/microsoft/MSRSec
 [3]: https://optee.readthedocs.io/en/latest/architecture/secure_storage.html#rpmb-secure-storage
 [4]: https://optee.readthedocs.io/en/latest/building/userland_integration.html
+[5]: https://linux.org.au/grants/

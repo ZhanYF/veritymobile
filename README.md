@@ -4,8 +4,7 @@ Security Framework for Mobile Linux
 
 veritymobile aims to bring easy to use Secure Boot and Measured Boot to the PinePhone Pro with hardware-backed security and fully open source code.
 
-At this stage this project is *highly experimental* and should not be considered secure. A prebuilt Mobian image for the PinePhone Pro is available for testing.
-
+At this stage this project is *highly experimental* and should not be considered secure.
 
 ### Internals
 
